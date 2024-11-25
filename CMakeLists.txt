@@ -24,7 +24,7 @@
 #  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.20)
 
 project(NE10 C CXX ASM)
 
@@ -187,7 +187,9 @@ endif()
 # Make sure we are compiling for an ARM system.
 # This is a verbose fail-fast in case we are trying to compile for non-ARM;
 # otherwise it would fail at `make` with obscure errors.
-if(GNULINUX_PLATFORM AND (NOT CMAKE_SYSTEM_PROCESSOR MATCHES "^arm"))
+if(GNULINUX_PLATFORM AND
+   (NOT CMAKE_SYSTEM_PROCESSOR MATCHES "^arm") AND
+   (NOT CMAKE_SYSTEM_PROCESSOR MATCHES "^aarch"))
     message(FATAL_ERROR "You are trying to compile for non-ARM (CMAKE_SYSTEM_PROCESSOR='${CMAKE_SYSTEM_PROCESSOR}')! see doc/building.md for cross compilation instructions.")
 endif()
 
